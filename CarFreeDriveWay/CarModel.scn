@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+  <asset>
+    <contributor>
+      <author>CarFreeDriveWay</author>
+      <authoring_tool>Blender 3.6.0</authoring_tool>
+    </contributor>
+    <created>2024-03-13T12:00:00</created>
+    <modified>2024-03-13T12:00:00</modified>
+    <unit name="meter" meter="1"/>
+    <up_axis>Y_UP</up_axis>
+  </asset>
+  
+  <library_images>
+    <image id="car_paint" name="car_paint">
+      <init_from>car_paint.png</init_from>
+    </image>
+    <image id="car_normal" name="car_normal">
+      <init_from>car_normal.png</init_from>
+    </image>
+    <image id="car_roughness" name="car_roughness">
+      <init_from>car_roughness.png</init_from>
+    </image>
+    <image id="car_ao" name="car_ao">
+      <init_from>car_ao.png</init_from>
+    </image>
+    <image id="glass" name="glass">
+      <init_from>glass.png</init_from>
+    </image>
+    <image id="tire" name="tire">
+      <init_from>tire.png</init_from>
+    </image>
+    <image id="rim" name="rim">
+      <init_from>rim.png</init_from>
+    </image>
+  </library_images>
+  
+  <library_materials>
+    <material id="car_paint_material" name="car_paint_material">
+      <instance_effect url="#car_paint_effect"/>
+    </material>
+    <material id="glass_material" name="glass_material">
+      <instance_effect url="#glass_effect"/>
+    </material>
+    <material id="tire_material" name="tire_material">
+      <instance_effect url="#tire_effect"/>
+    </material>
+    <material id="rim_material" name="rim_material">
+      <instance_effect url="#rim_effect"/>
+    </material>
+  </library_materials>
+  
+  <library_effects>
+    <effect id="car_paint_effect" name="car_paint_effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <phong>
+            <diffuse>
+              <texture texture="car_paint" texcoord="UVMap"/>
+            </diffuse>
+            <bump>
+              <texture texture="car_normal" texcoord="UVMap"/>
+            </bump>
+            <specular>
+              <color>0.5 0.5 0.5 1</color>
+            </specular>
+            <shininess>
+              <float>0.8</float>
+            </shininess>
+            <reflectivity>
+              <float>0.5</float>
+            </reflectivity>
+          </phong>
+        </technique>
+      </profile_COMMON>
+    </effect>
+    
+    <effect id="glass_effect" name="glass_effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <phong>
+            <transparent>
+              <color>1 1 1 0.2</color>
+            </transparent>
+            <transparency>
+              <float>0.8</float>
+            </transparency>
+            <specular>
+              <color>1 1 1 1</color>
+            </specular>
+            <shininess>
+              <float>0.9</float>
+            </shininess>
+            <reflectivity>
+              <float>0.8</float>
+            </reflectivity>
+          </phong>
+        </technique>
+      </profile_COMMON>
+    </effect>
+    
+    <effect id="tire_effect" name="tire_effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <phong>
+            <diffuse>
+              <texture texture="tire" texcoord="UVMap"/>
+            </diffuse>
+            <specular>
+              <color>0.1 0.1 0.1 1</color>
+            </specular>
+            <shininess>
+              <float>0.1</float>
+            </shininess>
+          </phong>
+        </technique>
+      </profile_COMMON>
+    </effect>
+    
+    <effect id="rim_effect" name="rim_effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <phong>
+            <diffuse>
+              <texture texture="rim" texcoord="UVMap"/>
+            </diffuse>
+            <specular>
+              <color>0.8 0.8 0.8 1</color>
+            </specular>
+            <shininess>
+              <float>0.9</float>
+            </shininess>
+            <reflectivity>
+              <float>0.7</float>
+            </reflectivity>
+          </phong>
+        </technique>
+      </profile_COMMON>
+    </effect>
+  </library_effects>
+  
+  <library_geometries>
+    <!-- Main body geometry -->
+    <geometry id="car_body" name="car_body">
+      <mesh>
+        <source id="car_body_positions">
+          <float_array id="car_body_positions_array" count="3000">
+            <!-- Detailed vertex positions for car body -->
+            <!-- This would be a very long list of coordinates -->
+          </float_array>
+          <technique_common>
+            <accessor source="#car_body_positions_array" count="1000" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        
+        <source id="car_body_normals">
+          <float_array id="car_body_normals_array" count="3000">
+            <!-- Normal vectors for car body -->
+          </float_array>
+          <technique_common>
+            <accessor source="#car_body_normals_array" count="1000" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        
+        <source id="car_body_uvs">
+          <float_array id="car_body_uvs_array" count="2000">
+            <!-- UV coordinates for car body -->
+          </float_array>
+          <technique_common>
+            <accessor source="#car_body_uvs_array" count="1000" stride="2">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        
+        <vertices id="car_body_vertices">
+          <input semantic="POSITION" source="#car_body_positions"/>
+          <input semantic="NORMAL" source="#car_body_normals"/>
+        </vertices>
+        
+        <triangles count="2000" material="car_paint_material">
+          <input semantic="VERTEX" source="#car_body_vertices" offset="0"/>
+          <input semantic="NORMAL" source="#car_body_normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#car_body_uvs" offset="2" set="0"/>
+          <p>
+            <!-- Triangle indices -->
+          </p>
+        </triangles>
+      </mesh>
+    </geometry>
+    
+    <!-- Similar geometry definitions for other parts -->
+    <!-- Windows, wheels, lights, etc. -->
+  </library_geometries>
+  
+  <library_visual_scenes>
+    <visual_scene id="Scene" name="Scene">
+      <node id="car" name="car" type="NODE">
+        <matrix>1 0 0 0 0 1 0 0 0 0 1 0 0 0.5 10 1</matrix>
+        
+        <!-- Main body -->
+        <node id="body" name="body" type="NODE">
+          <instance_geometry url="#car_body"/>
+        </node>
+        
+        <!-- Windows -->
+        <node id="windows" name="windows" type="NODE">
+          <instance_geometry url="#car_windows"/>
+        </node>
+        
+        <!-- Wheels -->
+        <node id="wheels" name="wheels" type="NODE">
+          <node id="wheel_fl" name="wheel_fl" type="NODE">
+            <matrix>1 0 0 0 0 1 0 0 0 0 1 0 -0.9 0.3 1.2 1</matrix>
+            <instance_geometry url="#car_wheel"/>
+          </node>
+          <!-- Other wheels -->
+        </node>
+        
+        <!-- Lights -->
+        <node id="lights" name="lights" type="NODE">
+          <node id="headlights" name="headlights" type="NODE">
+            <instance_geometry url="#car_headlights"/>
+          </node>
+          <node id="taillights" name="taillights" type="NODE">
+            <instance_geometry url="#car_taillights"/>
+          </node>
+        </node>
+        
+        <!-- Details -->
+        <node id="details" name="details" type="NODE">
+          <node id="mirrors" name="mirrors" type="NODE">
+            <instance_geometry url="#car_mirrors"/>
+          </node>
+          <node id="handles" name="handles" type="NODE">
+            <instance_geometry url="#car_handles"/>
+          </node>
+          <node id="badges" name="badges" type="NODE">
+            <instance_geometry url="#car_badges"/>
+          </node>
+        </node>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  
+  <scene>
+    <instance_visual_scene url="#Scene"/>
+  </scene>
+</COLLADA> 
